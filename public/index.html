@@ -7,14 +7,16 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="Web site created for get Currency conversion rate,and can also give historical data on conversion till year 2000"
     />
+    <meta name="google-site-verification" content="DGG0s6n4cwo3uslG3qbVtdxTD4Nmrhkpk1xwFLzV0aA" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" integrity="sha512-f8mwTB+Bs8a5c46DEm7HQLcJuHMBaH/UFlcgyetMqqkvTcYg4g5VXsYR71b3qC82lZytjNYvBj2pf0VekA9/FQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -24,11 +26,27 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Currency Convert</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div class="container">
+      <div class="wrapper">
+        <div class="copy"></div>
+      </div>
+      <div class="blocks">
+        <div class="block block-left"></div>
+        <div class="block block-right"></div>
+      </div>
+      <div class="letters">
+        <div class="row">
+          <div class="letter top-left">₹</div>
+          <div class="letter top-right">$</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:none" id="root"></div>
+    
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -40,4 +58,46 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script async>
+    let container = document.querySelector(".container")
+    gsap.from(".letter", 0.8, {
+      y: -20,
+      opacity: 0,
+      ease: "power3.inOut",
+      stagger: 0.1,
+    });
+    gsap.to(".top-left , .top-right", 2, {
+      top: "0",
+      ease: "power3.inOut",
+      delay: 2,
+    });
+    gsap.to(".top-left", 2, {
+      left: "-50%",
+      ease: "power3.inOut",
+      delay: 4,
+    });
+    gsap.to(".top-right", 2, {
+      right: "-50%",
+      ease: "power3.inOut",
+      delay: 4,
+    });
+    gsap.to(".block-left", 2, {
+      left: "-50%",
+      ease: "power3.inOut",
+      delay: 4,
+    });
+    gsap.to(".block-right", 2, {
+      right: "-50%",
+      ease: "power3.inOut",
+      delay: 4,
+      stagger: {
+        onComplete() {
+          let root = document.getElementById("root")
+          let container = document.querySelector(".container")
+          container.style.display = 'none'
+          root.style.display = 'block'
+        },
+      },
+    })
+  </script>
 </html>
